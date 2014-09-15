@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# This script serves as the Pattern build step of the
+# [**Python Buildpack**](https://github.com/heroku/heroku-buildpack-python)
+# compiler.
+#
+# A [buildpack](http://devcenter.heroku.com/articles/buildpacks) is an
+# adapter between a Python application and Heroku's runtime.
+#
+# This script is invoked by [`bin/compile`](/).
+
+# Pattern is hosted in a non-standard location
+# --allow-external Pattern --allow-unverified Pattern
+
+REQ_TXT=$(pwd)/requirements.txt
+
+# Syntax sugar.
+source $BIN_DIR/utils
+
+if (grep -iq "Pattern" $REQ_TXT) then
+  puts-step "Pattern detected in requirements.  Installing latest version."
+  /app/.heroku/python/bin/pip install --use-mirrors --allow-external Pattern --allow-unverified Pattern Pattern | cleanup | indent
+fi
