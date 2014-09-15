@@ -20,7 +20,7 @@ PATTERN_BIN=pattern-2.6.tar.gz
 source $BIN_DIR/utils
 
 if (grep -iq "Pattern" $REQ_TXT) then
-  WORKING_DIR = $(pwd)
+  WORKING_DIR=$(pwd)
   cd $CACHE_DIR
 
   puts-step "Pattern detected in requirements.  Installing latest version."
