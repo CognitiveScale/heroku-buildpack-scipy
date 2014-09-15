@@ -19,5 +19,5 @@ source $BIN_DIR/utils
 
 if (grep -iq "Pattern" $REQ_TXT) then
   puts-step "Pattern detected in requirements.  Installing latest version."
-  /app/.heroku/python/bin/pip install --use-mirrors --allow-external Pattern --allow-unverified Pattern Pattern | cleanup | indent
+  /app/.heroku/python/bin/pip install --use-mirrors --allow-all-external --allow-unverified Pattern Pattern | cleanup | indent
 fi
