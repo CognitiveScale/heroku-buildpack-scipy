@@ -9,6 +9,7 @@
 #
 # This script is invoked by [`bin/compile`](/).
 
+NLTK_DATA_BIN=nltk_data.tar.gz
 NLTK_DATA_DIR=nltk_data
 NLTK_INSTALL_DIR=$BUILD_DIR/$NLTK_DATA_DIR
 REQ_TXT=$(pwd)/requirements.txt
@@ -18,16 +19,17 @@ source $BIN_DIR/utils
 
 if (grep -iq "nltk" $REQ_TXT) then
   WORKING_DIR=$(pwd)
-  cd $BUILD_DIR
+  cd $CACHE_DIR
 
   puts-step "NLTK detected in requirements.  Installing latest version to $BUILD_DIR"
-  /app/.heroku/python/bin/pip install --use-mirrors nltk | cleanup | indent
+  # /app/.heroku/python/bin/pip install --use-mirrors nltk | cleanup | indent
 
-  if [ -d $NLTK_INSTALL_DIR ]; then
+  if [ -d $NLTK_DATA_BIN ]; then
     puts-step "Using cached nltk_data corpora"
   else
     puts-step "Downloading NLTK corpus to $NLTK_INSTALL_DIR"
-    /app/.heroku/python/bin/python -m nltk.downloader -d $BUILD_DIR all
+    # /app/.heroku/python/bin/python -m nltk.downloader -d $BUILD_DIR all
+    tar -zxf $NLTK_DATA_BIN -C $BUILD_DIR
   fi
   cd $WORKING_DIR
 fi
