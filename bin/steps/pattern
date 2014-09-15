@@ -20,17 +20,21 @@ PATTERN_BIN=pattern-2.6.tar.gz
 source $BIN_DIR/utils
 
 if (grep -iq "Pattern" $REQ_TXT) then
-  cd .heroku
+  WORKING_DIR = $(pwd)
+  cd $CACHE_DIR
+
   puts-step "Pattern detected in requirements.  Installing latest version."
   # /app/.heroku/python/bin/pip install --use-mirrors --allow-all-external --allow-unverified Pattern Pattern | cleanup | indent
-  if [ -d $PATTERN ]; then
+  if [ -d $PATTERN_BIN ]; then
     puts-step "Using cached binaries."
   else
     wget http://photon.c1.io/downloads/$PATTERN_BIN
   fi
+
   if [ ! -d "python/lib/python2.7/site-packages/pattern" ]; then
-    puts-step "Installing pattern to python/lib/python2.7/site-packages/pattern"
-    tar -zxf $PATTERN_BIN -C "python/lib/python2.7/site-packages"
+    puts-step "Installing pattern to /app/.heroku/python/lib/python2.7/site-packages/pattern"
+    tar -zxf $PATTERN_BIN -C "/app/.heroku/python/lib/python2.7/site-packages"
   fi
-  cd ..
+
+  cd $WORKING_DIR
 fi
