@@ -9,7 +9,7 @@
 #
 # This script is invoked by [`bin/compile`](/).
 
-NLTK_DATA_DIR=/home/vcap/app/nltk_data
+NLTK_INSTALL_DIR=/home/vcap/app
 REQ_TXT=$(pwd)/requirements.txt
 
 # Syntax sugar.
@@ -18,6 +18,8 @@ source $BIN_DIR/utils
 if (grep -iq "nltk" $REQ_TXT) then
   puts-step "NLTK detected in requirements.  Installing latest version."
   /app/.heroku/python/bin/pip install --use-mirrors nltk | cleanup | indent
-  puts-step "Downloading NLTK corpus to $NLTK_DATA_DIR"
-  /app/.heroku/python/bin/python -m nltk.downloader -d $NTLK_DATA_DIR all
+  puts-step "Downloading NLTK corpus to $NLTK_INSTALL_DIR/nltk_data"
+  WORKING_DIR=$(pwd)
+  cd $NLTK_INSTALL_DIR
+  /app/.heroku/python/bin/python -m nltk.downloader all
 fi
