@@ -1,10 +1,10 @@
-Heroku buildpack: Python, Numpy, and Scipy
+Heroku buildpack: Python, Numpy, Scipy, NLTK
 ====================================================
 
 This is a [Heroku buildpack](http://devcenter.heroku.com/articles/buildpacks)
 for Python apps, powered by [pip](http://www.pip-installer.org/).
 
-This custom buildpack currently supports only NumPy 1.8.1 and SciPy 0.14.0
+This custom buildpack currently supports only NumPy 1.8.1, SciPy 0.14.0, and NLTK 3.0.0
 installations.
 
 Please open a GitHub for any problems encountered or feature requests. If you
@@ -18,6 +18,7 @@ This buildpack only supports:
 
 - NumPy 1.8.1
 - SciPy 0.14.0
+- NLTK 3.0.0
 
 This package will also install compiled runtime libraries for BLAS, LAPACK,
 ATLAS, and Fortran, which are needed by NumPy and SciPy at runtime.
