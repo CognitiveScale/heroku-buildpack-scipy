@@ -27,7 +27,7 @@ if (grep -iq "nltk" $REQ_TXT) then
     puts-step "Using cached nltk_data corpora"
   else
     puts-step "Downloading NLTK corpus to $NLTK_INSTALL_DIR"
-    /app/.heroku/python/bin/python -m nltk.downloader all
+    /app/.heroku/python/bin/python -m nltk.downloader -d $BUILD_DIR all
   fi
   cd $WORKING_DIR
 fi
