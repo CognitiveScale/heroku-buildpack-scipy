@@ -28,13 +28,15 @@ if (grep -iq "Pattern" $REQ_TXT) then
   if [ -d $PATTERN_BIN ]; then
     puts-step "Using cached binaries."
   else
-    wget http://photon.c1.io/downloads/$PATTERN_BIN
+    wget --quiet http://photon.c1.io/downloads/$PATTERN_BIN
   fi
 
   if [ ! -d "python/lib/python2.7/site-packages/pattern" ]; then
     puts-step "Installing pattern to /app/.heroku/python/lib/python2.7/site-packages/pattern"
     tar -zxf $PATTERN_BIN -C "/app/.heroku/python/lib/python2.7/site-packages"
   fi
+
+  rm $PATTERN_BIN
 
   cd $WORKING_DIR
 fi

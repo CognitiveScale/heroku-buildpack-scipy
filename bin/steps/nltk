@@ -28,12 +28,14 @@ if (grep -iq "nltk" $REQ_TXT) then
     puts-step "Using cached nltk_data corpora"
   else
     puts-step "Downloading NLTK corpus to $NLTK_INSTALL_DIR"
-    wget http://photon.c1.io/downloads/$NLTK_DATA_BIN
+    wget --quiet http://photon.c1.io/downloads/$NLTK_DATA_BIN
     # /app/.heroku/python/bin/python -m nltk.downloader -d $BUILD_DIR all
   fi
 
   puts-step "Installing NLTK data into $NLTK_INSTALL_DIR"
   tar -zxf $NLTK_DATA_BIN -C $BUILD_DIR
+
+  rm $NLTK_DATA_BIN
 
   cd $WORKING_DIR
 fi
